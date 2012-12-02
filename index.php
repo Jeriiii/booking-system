@@ -23,7 +23,7 @@
 	
 	include("inc/model_db.inc.php");
 	$input_file = Model_db::getInstance()
-			->query("SELECT file FROM places WHERE id=" . $input)
+			->query("SELECT file FROM " . $TABLE_PLACES . " WHERE id=" . $input)
 			->fetch()
 			->file;
 	$active = "index.php";
@@ -43,7 +43,7 @@
 	<div id="json">
 		<?php 
 			$json = Model_db::getInstance()
-				->query("SELECT serie, type FROM elements_for_json")
+				->query("SELECT serie, type FROM " . $TABLE_INPUT_ELEMENTS_FOR_JSON)
 				->getJSON();
 			echo $json;
 		?>
@@ -76,7 +76,7 @@
 		</div>
 		<div id="reserved"><ul>
 			<?php
-				$elements = Model_db::getInstance()->query("SELECT * FROM elements");
+				$elements = Model_db::getInstance()->query("SELECT * FROM " . $TABLE_RESERVED_ELEMENTS);
 				while ($reserved = $elements->fetch())
 				{
 					echo "<li>" . $reserved->element . "_" . $reserved->serie . "</li>";

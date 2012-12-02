@@ -13,7 +13,7 @@ foreach ($_POST as $value)
 	$seat = $serie_and_seat[0];
 	
 	$query = "
-		INSERT INTO elements (id_place, id_user, serie, element)
+		INSERT INTO " . $TABLE_RESERVED_ELEMENTS . " (id_place, id_user, serie, element)
 		VALUES (1," . $id_user . "," . $serie . ",". $seat ." );
 	";
 	

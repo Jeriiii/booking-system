@@ -41,7 +41,10 @@ class Model_db {
 	    $this->connect();
 	    
 	    $this->rows = mysql_query($query,  $this->id_connect);
-	    
+		
+		if (!$this->rows) 
+			die("Nepodaril se poslat SQL dotaz do databaze.");
+		
 	    $this->disconnect();
 		
 		return $this;

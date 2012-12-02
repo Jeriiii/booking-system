@@ -52,7 +52,7 @@ echo "<thead><th>jméno filmu</th><th>od</th><th>do</th><th>sál</th></thead>";
 
 include("inc/model_db.inc.php");
 $films = Model_db::getInstance()
-	->query("SELECT * FROM films");
+	->query("SELECT * FROM " . $TABLE_MOVIES);
 
 while($film = $films->fetch())
 {

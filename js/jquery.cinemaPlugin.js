@@ -123,15 +123,9 @@ $.fn.booking_system.defaults = {
 	/* funkce která se spustí po přejetí myši přes element */
 	mouse_over: mouseOverDefault,
 	/* data pro funkci která se spustí po přejetí myši přes element */
-	mouse_over_data: {},
-	/* funkce která se spustí po klepnutí myši na element */
 	mouse_up: mouseUpDefault,
 	/* data pro funkci která se spustí po klepnutí myši na element */
-	mouse_up_data: {},
-	/* funkce která se spustí po opuštění myší element */
 	mouse_out: mouseOutDefault,
-	/* data pro funkci která se spustí po opuštění myší element */
-	mouse_out_data: {},
 	/* obrázek elementu */
 	img_element: "images/modre_jednosedadlo.png",
 	/* obrázek dvojelementu např. dvojsedačky */

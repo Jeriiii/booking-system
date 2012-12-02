@@ -10,7 +10,7 @@ if(isset($_POST["form"])) {
 		include("inc/model_db.inc.php");
 		
 		$exist_user = Model_db::getInstance()
-						->query("SELECT id FROM users WHERE mail = '" . $_POST["mail"] . "' AND password = '" . md5($_POST["password"]) . "'")
+						->query("SELECT id FROM ". $TABLE_USERS . " WHERE email = '" . $_POST["mail"] . "' AND password = '" . md5($_POST["password"]) . "'")
 						->fetch();
 		
 		if ($exist_user) {
