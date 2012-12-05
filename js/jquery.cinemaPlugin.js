@@ -123,6 +123,8 @@ $.fn.booking_system.defaults = {
 	input: "1,1,1,2,;,1,1,1,1;,,2,, ;",
 	/* název třídy elementu pro css */
 	name_class_element: "sedadlo",
+	/* název série - např. řady sedadel */
+	name_class_serie: "ctverec",
 	/* název třídy elementu pro prázdné místo pro css */
 	name_class_without_element: "vynechane_misto",
 	/* funkce která se spustí po přejetí myši přes element */
@@ -350,13 +352,14 @@ function mouseOutDefault(e) {
 function createElement($, value, index1, index2, indexElement) {
 	var opts = this.opts;
 	
+	var class_serie = opts.name_class_serie;
 	if(value == "-"){
-		$('.ctverec:last').append("<div id=" + index1 + "_" + index2 +  " class='" + opts.name_class_without_element + "'></div>");
+		$('.' + class_serie + ':last').append("<div id=" + index1 + "_" + index2 +  " class='" + opts.name_class_without_element + "'></div>");
 		--indexElement;
 	}else if(value == 1){
-		$('.ctverec:last').append("<div id=" + index1 + "_" + index2 +  " class='" + opts.name_class_element + "'><img src=" + opts.img_element + " title='" + indexElement + "' \></div>");
+		$('.' + class_serie + ':last').append("<div id=" + index1 + "_" + index2 +  " class='" + opts.name_class_element + "'><img src=" + opts.img_element + " title='" + indexElement + "' \></div>");
 	}else if(value == 2){
-		$('.ctverec:last').append("<div id=" + index1 + "_" + index2 +  " class='" + opts.name_class_element + "_" + value + "'><img src=" + opts.img_double_element + "  title='" + indexElement + "' \></div>");
+		$('.' + class_serie + ':last').append("<div id=" + index1 + "_" + index2 +  " class='" + opts.name_class_element + "_" + value + "'><img src=" + opts.img_double_element + "  title='" + indexElement + "' \></div>");
 	}else if(value == 0 || value == ""){
 		--indexElement;
 	}
@@ -372,7 +375,9 @@ function createElement($, value, index1, index2, indexElement) {
  */
 
 function createSerie($, counter) {
-	thisSystem.append("<div id='serie_" + counter  + "' class='ctverec'></div>");
+	var opts = this.opts;
+	
+	thisSystem.append("<div id='serie_" + counter  + "' class='" + opts.name_class_serie + "'></div>");
 	return ++counter;
 }
 
@@ -385,8 +390,10 @@ function createSerie($, counter) {
  */
 
 function createMarkRowsOfElements($, value) {
+	var opts = this.opts;
 	value = value.substring(1, value.length - 1);
-	$('.ctverec:last').append("<div class='serie_name'>" + value + "</div>");
+	
+	$('.' + opts.name_class_serie + ':last').append("<div class='serie_name'>" + value + "</div>");
 }
 
 /**
