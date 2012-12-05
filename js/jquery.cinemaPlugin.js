@@ -14,6 +14,8 @@
 
 /* nastavění uživatele doplněné o defaultní nastavení */
 var opts;
+/* obsahuje prvek nad kterym je system volan */
+var thisSystem;
 
 /**
  * Nejdříve načte nastavení uživatele a doplní je o defaultní nastavení. Poté zjistí v jakém je vstup formátu. Jestli
@@ -39,6 +41,9 @@ var opts;
  */
 
 $.fn.booking_system = function(options){
+	/* uložení si objektu, nak kterým je systém volán do proměné */
+	thisSystem = this;
+
 	/* doplneni nevyplnenych nastaveni o deafultni nastaveni */
 	var opts = $.extend({}, $.fn.booking_system.defaults, options);
 	
@@ -367,7 +372,7 @@ function createElement($, value, index1, index2, indexElement) {
  */
 
 function createSerie($, counter) {
-	$('#cinema').append("<div id='serie_" + counter  + "' class='ctverec'></div>");
+	thisSystem.append("<div id='serie_" + counter  + "' class='ctverec'></div>");
 	return ++counter;
 }
 

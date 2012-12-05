@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	$("#cinema").booking_system({
-		format: "json",
-		input: $("#json").text()
+		format: "xls",
+		input: $("#xls").text()
 	});
 });
 
