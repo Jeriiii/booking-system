@@ -9,6 +9,7 @@ function get_navigation($active, $type)
 		"index.php" => "Rezervace",
 		"preview.php" => "Shrnutí",
 		"sign_out.php" => "Odhlášení",
+		"../index.php" => "<i>Přejít na rezervaci kina</i>",
 	);
 	
 	foreach($nav_list as $key => $item)

@@ -95,7 +95,7 @@ $.fn.booking_system = function(options){
 	/* vytvoří popisky elementů */
 	createLegend();
 
-	$('.sedadlo[data-status!=reserved], .sedadlo_2[data-status!=reserved]')
+	$('.' + opts.name_class_element + '[data-status!=reserved], .' + opts.name_class_element + '_2[data-status!=reserved]')
 	.click(
 		opts.mouse_up_data,
 		opts.mouse_up

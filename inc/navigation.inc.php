@@ -11,6 +11,7 @@ function get_navigation($active, $type)
 		"index.php" => "Rezervace",
 		"preview.php" => "Shrnutí",
 		"sign_out.php" => "Odhlášení",
+		"squash/index.php" => "<i>Přejít na rezervaci squashe</i>",
 	);
 	
 	foreach($nav_list as $key => $item)

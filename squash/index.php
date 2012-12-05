@@ -2,22 +2,22 @@
 	session_start();
 	include("inc/message.inc.php");
 	include("inc/authorization.inc.php");
-	include("PFBC/Form.php");
-	// jednoradkovy
-	if(isset($_POST["form"])) {
-		PFBC\Form::isValid($_POST["form"]);
-		$input = $_POST["place"];
-	}elseif(isset($_GET["place"])){
-		$input = $_GET["place"];
-	}else{
+//	include("PFBC/Form.php");
+//	// jednoradkovy
+//	if(isset($_POST["form"])) {
+//		PFBC\Form::isValid($_POST["form"]);
+//		$input = $_POST["place"];
+//	}elseif(isset($_GET["place"])){
+//		$input = $_GET["place"];
+//	}else{
 		$input = 1;
-	}
-
-	$place = array(
-		"1" => "sál 1",
-		"2" => "sál 2",
-		"3" => "sál 3",
-	);
+//	}
+//
+//	$place = array(
+//		"1" => "sál 1",
+//		"2" => "sál 2",
+//		"3" => "sál 3",
+//	);
 	
 	include("inc/header.inc.php");
 	
@@ -27,18 +27,17 @@
 			->fetch()
 			->file;
 	$active = "index.php";
-	$type = "navbar-inverse";
 	include('inc/navigation.inc.php');
 	echo $navigation;
 	
-	$form = new PFBC\Form("select_place");
-	$form->configure(array(
-		"prevent" => array("bootstrap", "jQuery", "focus"),
-		"view" => new PFBC\View\Search
-	));
-	$form->addElement(new PFBC\Element\Hidden("form", "select_place"));
-	$form->addElement(new PFBC\Element\Select("", "place", $place));
-	$form->addElement(new PFBC\Element\Button("Vybrat místo"));
+//	$form = new PFBC\Form("select_place");
+//	$form->configure(array(
+//		"prevent" => array("bootstrap", "jQuery", "focus"),
+//		"view" => new PFBC\View\Search
+//	));
+//	$form->addElement(new PFBC\Element\Hidden("form", "select_place"));
+//	$form->addElement(new PFBC\Element\Select("", "place", $place));
+//	$form->addElement(new PFBC\Element\Button("Vybrat místo"));
 ?>
 	<div id="json">
 		<?php 
@@ -58,20 +57,20 @@
 	<div id="xls">
 		<?php echo file_get_contents("data/" . $input_file);?>
 	</div>
-	<div class="row">
-		<div class="span6"><?php $form->render(); ?></div>
+<!--	<div class="row">
+		<div class="span6"><?php // $form->render(); ?></div>
 		<div class="span9" id="legend">
 			<div class="row"></div>
 		</div>
-	</div>
+	</div>-->
 		<div id="reserved_system">
-			<div id="left"><img src="images/leva_strana_kina.png" alt="left_img"></div>
+			<div id="left"></div>
 			<div id="middle">
 				<div id="head"></div>
 				<div id="cinema"></div>
 				<div id="foot"></div>
 			</div>
-			<div id="right"><img src="images/prava_strana_kina.png" alt="right_img"></div>
+			<div id="right"></div>
 			<div style="clear: both"></div>
 		</div>
 		<div id="reserved"><ul>
