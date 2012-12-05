@@ -13,11 +13,11 @@ foreach ($_POST as $value)
 	$seat = $serie_and_seat[0];
 	
 	$query = "
-		INSERT INTO " . $TABLE_RESERVED_ELEMENTS . " (id_place, id_user, serie, element)
+		INSERT INTO " . $TABLE_RESERVED_ELEMENTS . " (id_place, id_user, serie_number, element_number)
 		VALUES (1," . $id_user . "," . $serie . ",". $seat ." );
 	";
 	
-	$model_db->query($query);
+	Model_db::getInstance()->query($query);
 	
 }
 

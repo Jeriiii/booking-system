@@ -76,10 +76,15 @@
 		</div>
 		<div id="reserved"><ul>
 			<?php
-				$elements = Model_db::getInstance()->query("SELECT * FROM " . $TABLE_RESERVED_ELEMENTS);
+				$place = 1;
+				
+				if(isset($_POST['place']))
+					$place = $_POST['place'];
+
+				$elements = Model_db::getInstance()->query("SELECT * FROM " . $TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place );
 				while ($reserved = $elements->fetch())
 				{
-					echo "<li>" . $reserved->element . "_" . $reserved->serie . "</li>";
+					echo "<li>" . $reserved->element_number . "_" . $reserved->serie_number . "</li>";
 				}
 			?>
 		</ul></div>

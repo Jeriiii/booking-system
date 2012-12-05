@@ -1,34 +1,26 @@
 <?php
-
-$id_spojeni = mysql_connect('localhost','root','a10b0618p');
-
-if (!$id_spojeni)
-die('Spojeni s MySQL databazi se nezdarilo.');
-
-$vysledek_vybrani = mysql_select_db('cinema',$id_spojeni);
-if (!$vysledek_vybrani)
-die('Databazi pokus se nam nepodarilo vybrat.');
-
 unset($_POST["Zarezervovat"]);
 $string = "";
+$id_user = $_POST["id_user"];
+unset($_POST["id_user"]);
+
+include("inc/model_db.inc.php");	
+
 foreach ($_POST as $value)
 {
 	$serie_and_seat = explode("_", $value );
 	$serie = $serie_and_seat[1];
 	$seat = $serie_and_seat[0];
+	
 	$query = "
-		INSERT INTO seats (id_hall, serie, seat)
-		VALUES (1," . $serie . ",". $seat ." );
+		INSERT INTO " . $TABLE_RESERVED_ELEMENTS . " (id_place, id_user, serie_number, element_number)
+		VALUES (1," . $id_user . "," . $serie . ",". $seat ." );
 	";
 	
-	$vysledek = mysql_query($query,$id_spojeni);
-	$string = $string . $query;
-	if (!$vysledek)
-	die('Nepodarilo se zarezervovat sedadlo: ' . $seat . ' v rade:' . $serie);
+	Model_db::getInstance()->query($query);
+	
 }
-//die($string."");
-mysql_close($id_spojeni);
 
-header('Location: index.php');
+header('Location: preview.php');
 
 ?>
