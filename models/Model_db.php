@@ -43,7 +43,7 @@ class Model_db {
 	    $this->rows = mysql_query($query,  $this->id_connect);
 		
 		if (!$this->rows) 
-			die("Nepodaril se poslat SQL dotaz do databaze.");
+			die("Nepodaril se poslat SQL dotaz do databaze." . $query);
 		
 	    $this->disconnect();
 		
