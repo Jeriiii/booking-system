@@ -1,7 +1,7 @@
 <?php
 function get_navigation($active, $type)
 {
-	$navigation = '<div class="navbar ' . $type . '"><div class="navbar-inner"><ul class="nav">';
+	$navigation = '<header><div class="navbar ' . $type . '"><div class="navbar-inner"><ul class="nav">';
 	
 	$nav_list = array(
 		"sign_in.php" => "Přihlášení",

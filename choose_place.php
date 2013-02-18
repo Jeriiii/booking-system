@@ -41,7 +41,7 @@ $( "#autocomplete" ).autocomplete({
 
 <script type="text/JavaScript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.tokeninput.js"></script>
-<h2>Zadejte město:</h2>
+<h2>Zadejte město:</h2></header><section>
     <div>
 		<form action="choose_move.php" method="GET">
 			<input type="text" id="cities" name="search" />
@@ -50,16 +50,22 @@ $( "#autocomplete" ).autocomplete({
         <script type="text/javascript">
         $(document).ready(function() {
             $("#cities").tokenInput([{
-				"id":"1",
-                "name": "Plzeň",
-				"description": " ... je statutární město na západě Čech ..."
+				id:1,
+                name: "Plzeň",
+				description: " ... je statutární město na západě Čech ..."
             },
 			{
-				"id":"2",
-                "name": "České Budějovice",
-				"description": " ... metropole Jižních Čech ..."
+				id:2,
+                name: "České Budějovice",
+				description: " ... metropole Jižních Čech ..."
+            },
+			{
+				id:3,
+                name: "Praha",
+				description: " ... hlavní město ČR ..."
             }
           ], {
+			  method: "GET",
               propertyToSearch: "name",
 			  searchingText: "Vyhledávám ...",
 			  hintText: "Sem napište město",

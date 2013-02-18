@@ -11,6 +11,7 @@ include("PFBC/Form.php");
 	$city = array(
 		"1" => "Plzeň",
 		"2" => "České Budějovice",
+		"3" => "Praha"
 	);
 	
 	include("inc/header.inc.php");
@@ -19,10 +20,11 @@ include("PFBC/Form.php");
 	$type = "navbar-inverse";
 	include('inc/navigation.inc.php');
 	echo $navigation;
-	if(array_key_exists("id", $_GET))
-		echo "<h2>" . $city[$_GET["id"]] . "</h2>";
+	if(array_key_exists("search", $_GET))
+		echo "<h2>" . $city[$_GET["search"]] . "</h2>";
 	else
-		echo "<h2>Plzeň</h2>"
+		echo "<h2>Plzeň</h2>";
+	echo "</header><section>";
 ?>
 
 

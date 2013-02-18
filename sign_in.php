@@ -37,7 +37,7 @@ include('inc/navigation.inc.php');
 echo $navigation;
 
 $form = new PFBC\Form("login");
-$form->addElement(new PFBC\Element\HTML('<legend>Přihlášení</legend>'));
+$form->addElement(new PFBC\Element\HTML('<legend>Přihlášení</legend></header><section>'));
 $form->addElement(new PFBC\Element\Hidden("form", "login"));
 $form->addElement(new PFBC\Element\Textbox("Emailová adresa:", "mail", array("required" => 1)));
 $form->addElement(new PFBC\Element\Password("Heslo:", "password", array("required" => 1)));
@@ -47,5 +47,6 @@ $form->render();
 
 nejsteli zaregistrovaní, <a href="registration.php">registrujte se nyní</a><br />
 testovací uživatel - jméno a heslo je: test
+
 
 <?php include("inc/foot.inc.php");

@@ -9,7 +9,7 @@ $active = "preview.php";
 include('inc/navigation.inc.php');
 echo $navigation;
 
-echo "<h2>Zarezervovaná sedadla:</h2>";
+echo "<h2>Zarezervovaná sedadla:</h2></header><section>";
 echo "<table class='table'>";
 echo "<thead><th>sál</th><th>řada</th><th>sedadlo</th></thead>";
 

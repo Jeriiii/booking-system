@@ -4,10 +4,7 @@
 	include("inc/authorization.inc.php");
 	include("PFBC/Form.php");
 	// jednoradkovy
-	if(isset($_POST["form"])) {
-		PFBC\Form::isValid($_POST["form"]);
-		$input = $_POST["place"];
-	}elseif(isset($_GET["place"])){
+	if(isset($_GET["place"])){
 		$input = $_GET["place"];
 	}else{
 		$input = 1;
@@ -30,14 +27,18 @@
 	$type = "navbar-inverse";
 	include('inc/navigation.inc.php');
 	echo $navigation;
+	echo "<legend>Výběr místa</legend></header><section>";
 	
 	$form = new PFBC\Form("select_place");
 	$form->configure(array(
 		"prevent" => array("bootstrap", "jQuery", "focus"),
-		"view" => new PFBC\View\Search
+		"view" => new PFBC\View\Search,
+		"method" => "get"
 	));
 	$form->addElement(new PFBC\Element\Hidden("form", "select_place"));
-	$form->addElement(new PFBC\Element\Select("", "place", $place));
+	$select = new PFBC\Element\Select("", "place", $place);
+	$select->setValue($input);
+	$form->addElement($select);
 	$form->addElement(new PFBC\Element\Button("Vybrat místo"));
 ?>
 	<div id="json">
@@ -78,8 +79,8 @@
 			<?php
 				$place = 1;
 				
-				if(isset($_POST['place']))
-					$place = $_POST['place'];
+				if(isset($_GET['place']))
+					$place = $_GET['place'];
 
 				$elements = Model_db::getInstance()->query("SELECT * FROM " . $TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place );
 				while ($reserved = $elements->fetch())
@@ -91,11 +92,11 @@
 		<div id="selected">
 			<form action="save.php" method="post">
 				<input type="hidden" name="id_user" value="<?php echo $_SESSION["id_user"] ?>" />
+				<input type="hidden" name="id_place" value="<?php echo $place ?>" />
 				<div class="span3 offset12"><input type='submit' value='Zarezervovat' class="bnt btn-large btn-success" /></div>
 			</form>
 		</div>
 
-		<!--script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script-->
 		<script type="text/JavaScript" src="js/jquery.js"></script>
 		<script type="text/JavaScript" src="js/jquery.cinemaPlugin.js"></script>	
 		<script type="text/JavaScript" src="js/test.js"></script>

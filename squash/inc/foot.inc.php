@@ -1,4 +1,4 @@
 <?php
 /* div - end container */
-echo '</div></body></html>';
+echo '</section></div></body></html>';
 ?>

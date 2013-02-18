@@ -2,7 +2,9 @@
 unset($_POST["Zarezervovat"]);
 $string = "";
 $id_user = $_POST["id_user"];
+$id_place = $_POST["id_place"];
 unset($_POST["id_user"]);
+unset($_POST["id_place"]);
 
 include("inc/model_db.inc.php");	
 
@@ -14,7 +16,7 @@ foreach ($_POST as $value)
 	
 	$query = "
 		INSERT INTO " . $TABLE_RESERVED_ELEMENTS . " (id_place, id_user, serie_number, element_number)
-		VALUES (1," . $id_user . "," . $serie . ",". $seat ." );
+		VALUES (" . $id_place . "," . $id_user . "," . $serie . ",". $seat ." );
 	";
 	
 	Model_db::getInstance()->query($query);

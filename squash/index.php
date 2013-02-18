@@ -2,22 +2,7 @@
 	session_start();
 	include("inc/message.inc.php");
 	include("inc/authorization.inc.php");
-//	include("PFBC/Form.php");
-//	// jednoradkovy
-//	if(isset($_POST["form"])) {
-//		PFBC\Form::isValid($_POST["form"]);
-//		$input = $_POST["place"];
-//	}elseif(isset($_GET["place"])){
-//		$input = $_GET["place"];
-//	}else{
-		$input = 1;
-//	}
-//
-//	$place = array(
-//		"1" => "sál 1",
-//		"2" => "sál 2",
-//		"3" => "sál 3",
-//	);
+	$input = 1;
 	
 	include("inc/header.inc.php");
 	
@@ -29,15 +14,7 @@
 	$active = "index.php";
 	include('inc/navigation.inc.php');
 	echo $navigation;
-	
-//	$form = new PFBC\Form("select_place");
-//	$form->configure(array(
-//		"prevent" => array("bootstrap", "jQuery", "focus"),
-//		"view" => new PFBC\View\Search
-//	));
-//	$form->addElement(new PFBC\Element\Hidden("form", "select_place"));
-//	$form->addElement(new PFBC\Element\Select("", "place", $place));
-//	$form->addElement(new PFBC\Element\Button("Vybrat místo"));
+	echo "<legend>Výběr místa</legend></header><section>";
 ?>
 	<div id="json">
 		<?php 
@@ -47,22 +24,9 @@
 			echo $json;
 		?>
 	</div>
-	<div id="table">
-		<table>
-			<tr><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td></tr>
-		</table>
-	</div>
 	<div id="xls">
 		<?php echo file_get_contents("data/" . $input_file);?>
 	</div>
-<!--	<div class="row">
-		<div class="span6"><?php // $form->render(); ?></div>
-		<div class="span9" id="legend">
-			<div class="row"></div>
-		</div>
-	</div>-->
 		<div id="reserved_system">
 			<div id="left"></div>
 			<div id="middle">
@@ -76,9 +40,6 @@
 		<div id="reserved"><ul>
 			<?php
 				$place = 1;
-				
-				if(isset($_POST['place']))
-					$place = $_POST['place'];
 
 				$elements = Model_db::getInstance()->query("SELECT * FROM " . $TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place );
 				while ($reserved = $elements->fetch())
@@ -94,7 +55,6 @@
 			</form>
 		</div>
 
-		<!--script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script-->
 		<script type="text/JavaScript" src="js/jquery.js"></script>
 		<script type="text/JavaScript" src="js/jquery.cinemaPlugin.js"></script>	
 		<script type="text/JavaScript" src="js/test.js"></script>

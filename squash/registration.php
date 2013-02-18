@@ -22,7 +22,7 @@ $form = new PFBC\Form("registration");
 $form->configure(array(
 	"prevent" => array("bootstrap", "jQuery", "focus")
 ));
-$form->addElement(new PFBC\Element\HTML('<legend>Registrace</legend>'));
+$form->addElement(new PFBC\Element\HTML('<legend>Registrace</legend></header><section>'));
 $form->addElement(new PFBC\Element\Hidden("form", "registration"));
 $form->addElement(new PFBC\Element\Email("Email:", "mail", array("required" => 1)));
 $form->addElement(new PFBC\Element\Password("Heslo:", "password", array("required" => 1)));
