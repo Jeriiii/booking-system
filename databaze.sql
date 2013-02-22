@@ -1,9 +1,9 @@
 -- --------------------------------------------------------
--- Host:                         
+-- Host:                         127.0.0.1
 -- Server version:               5.5.28-log - MySQL Community Server (GPL)
 -- Server OS:                    Win64
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-12-05 18:35:26
+-- Date/time:                    2013-02-22 14:42:26
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -84,14 +84,10 @@ CREATE TABLE IF NOT EXISTS `reserved_elements` (
   `serie_number` smallint(3) unsigned NOT NULL,
   `element_number` smallint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table cinema.reserved_elements: ~3 rows (approximately)
+-- Dumping data for table cinema.reserved_elements: ~0 rows (approximately)
 /*!40000 ALTER TABLE `reserved_elements` DISABLE KEYS */;
-INSERT INTO `reserved_elements` (`id`, `id_place`, `id_user`, `serie_number`, `element_number`) VALUES
-	(43, 1, 0, 1, 5),
-	(45, 1, 0, 1, 3),
-	(47, 1, 2, 0, 2);
 /*!40000 ALTER TABLE `reserved_elements` ENABLE KEYS */;
 
 
@@ -101,13 +97,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(300) NOT NULL COMMENT 'email',
   `password` varchar(300) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table cinema.users: ~2 rows (approximately)
+-- Dumping data for table cinema.users: ~3 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `email`, `password`) VALUES
 	(2, 'P.Kukral@seznam.cz', 'e26256d0d2e39dc4fc5f5a28c593fcae'),
-	(3, '', 'd41d8cd98f00b204e9800998ecf8427e');
+	(3, '', 'd41d8cd98f00b204e9800998ecf8427e'),
+	(4, 'test', '098f6bcd4621d373cade4e832627b4f6');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
