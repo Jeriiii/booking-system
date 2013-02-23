@@ -141,7 +141,7 @@ class Model_db {
 	
 	public function loadInputFromFile($input)
 	{
-		$input = gpc_addslashes($input);
+		$input = $this->gpc_addslashes($input);
 		
 		return $this->query("SELECT file FROM " . TABLE_PLACES . " WHERE id=" . $input)
 					->fetch()
@@ -157,7 +157,7 @@ class Model_db {
 	
 	public function loadAllSeatsFromDatabaseJSON($place)
 	{
-		$place = gpc_addslashes($place);
+		$place = $this->gpc_addslashes($place);
 		
 		return $this->query("SELECT serie, type FROM " . TABLE_INPUT_ELEMENTS_FOR_JSON . " WHERE place=" . $place)
 					->getJSON();
@@ -172,10 +172,9 @@ class Model_db {
 	
 	public function loadReservedSeatsFromDatabase($place)
 	{
-		$place = gpc_addslashes($place);
+		$place = $this->gpc_addslashes($place);
 		
-		return $this->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place )
-				->fetch();;
+		return $this->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place );
 	}
 	
 	/**
@@ -189,10 +188,10 @@ class Model_db {
 	
 	public function bookSeats($id_place, $id_user, $serie, $seat)
 	{
-		$id_place = gpc_addslashes($id_place);
-		$id_user = gpc_addslashes($id_user);
-		$serie = gpc_addslashes($serie);
-		$seat = gpc_addslashes($seat);
+		$id_place = $this->gpc_addslashes($id_place);
+		$id_user = $this->gpc_addslashes($id_user);
+		$serie = $this->gpc_addslashes($serie);
+		$seat = $this->gpc_addslashes($seat);
 		
 		$this->query("
 			INSERT INTO " . TABLE_RESERVED_ELEMENTS . " (id_place, id_user, serie_number, element_number)
@@ -209,10 +208,9 @@ class Model_db {
 	
 	public function userReservedSeats($id_user)
 	{
-		$id_user = gpc_addslashes($id_user);
+		$id_user = $this->gpc_addslashes($id_user);
 		
-		return $this->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_user = '" . $id_user . "'")
-					->fetch();
+		return $this->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_user = '" . $id_user . "'");
 	}
 	
 	/**
@@ -225,8 +223,8 @@ class Model_db {
 	
 	public function signIn($email, $password)
 	{
-		$email = gpc_addslashes($email);
-		$password = gpc_addslashes($password);
+		$email = $this->gpc_addslashes($email);
+		$password = $this->gpc_addslashes($password);
 		
 		return $this->query("SELECT id FROM ". TABLE_USERS . " WHERE email = '" . $email . "' AND password = '" . md5($password) . "'")
 					->fetch();
@@ -241,12 +239,12 @@ class Model_db {
 	
 	public function registration($email, $password)
 	{
-		$email = gpc_addslashes($email);
-		$password = gpc_addslashes($password);
+		$email = $this->gpc_addslashes($email);
+		$password = $this->gpc_addslashes($password);
 		
 		return $this->query(
 				"INSERT INTO " . TABLE_USERS .  " (email, password) VALUES ('" 
-				. gpc_addslashes($email) . "', '" . md5($password) . "')"
+				. $email . "', '" . md5($password) . "')"
 				);
 	}
 	
@@ -258,8 +256,7 @@ class Model_db {
 	
 	public function loadMoves()
 	{		
-		return $this->query("SELECT * FROM " . TABLE_MOVIES)
-					->fetch();
+		return $this->query("SELECT * FROM " . TABLE_MOVIES);
 	}
 	
 	/**
@@ -270,7 +267,7 @@ class Model_db {
 	
 	public function cancelReservation($id_element)
 	{	
-		$id_element = gpc_addslashes($id_element);
+		$id_element = $this->gpc_addslashes($id_element);
 		
 		return $this->query("DELETE FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id = '" . $id_element . "'");
 	}

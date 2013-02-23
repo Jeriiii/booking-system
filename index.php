@@ -5,10 +5,9 @@
 	include("PFBC/Form.php");
 	include("inc/protection.inc.php");
 	// jednoradkovy
-	$get_place = gpc_addslashes($_GET["place"]);
 	
-	if(isset($get_place)){
-		$input = $get_place;
+	if(isset($_GET["place"])){
+		$input = gpc_addslashes($_GET["place"]);
 	}else{
 		$input = 1;
 	}
