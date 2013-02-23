@@ -26,19 +26,6 @@ include("PFBC/Form.php");
 	$form->addElement(new PFBC\Element\Button("Vybrat místo"));
 ?>
 
-<!--
-	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-<label for="autocomplete">Select a programming language: </label>
-<input id="autocomplete">
- 
-<script>
-$( "#autocomplete" ).autocomplete({
-    source: [ "Plzeň", "České Budějovice" ]
-});
-</script>
--->
-
 <script type="text/JavaScript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.tokeninput.js"></script>
 <h2>Zadejte město:</h2></header><section>

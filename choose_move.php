@@ -21,7 +21,7 @@ include("PFBC/Form.php");
 	include('inc/navigation.inc.php');
 	echo $navigation;
 	if(array_key_exists("search", $_GET))
-		echo "<h2>" . $city[$_GET["search"]] . "</h2>";
+		echo "<h2>" . $city[gpc_addslashes($_GET["search"])] . "</h2>";
 	else
 		echo "<h2>Plzeň</h2>";
 	echo "</header><section>";
@@ -54,7 +54,7 @@ echo "<thead><th>jméno filmu</th><th>od</th><th>do</th><th>sál</th></thead>";
 
 include("inc/model_db.inc.php");
 $films = Model_db::getInstance()
-	->query("SELECT * FROM " . $TABLE_MOVIES);
+	->query("SELECT * FROM " . TABLE_MOVIES);
 
 while($film = $films->fetch())
 {

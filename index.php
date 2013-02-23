@@ -3,9 +3,12 @@
 	include("inc/message.inc.php");
 	include("inc/authorization.inc.php");
 	include("PFBC/Form.php");
+	include("inc/protection.inc.php");
 	// jednoradkovy
-	if(isset($_GET["place"])){
-		$input = $_GET["place"];
+	$get_place = gpc_addslashes($_GET["place"]);
+	
+	if(isset($get_place)){
+		$input = $get_place;
 	}else{
 		$input = 1;
 	}
@@ -20,7 +23,7 @@
 	
 	include("inc/model_db.inc.php");
 	$input_file = Model_db::getInstance()
-			->query("SELECT file FROM " . $TABLE_PLACES . " WHERE id=" . $input)
+			->query("SELECT file FROM " . TABLE_PLACES . " WHERE id=" . $input)
 			->fetch()
 			->file;
 	$active = "index.php";
@@ -44,7 +47,7 @@
 	<div id="json">
 		<?php 
 			$json = Model_db::getInstance()
-				->query("SELECT serie, type FROM " . $TABLE_INPUT_ELEMENTS_FOR_JSON)
+				->query("SELECT serie, type FROM " . TABLE_INPUT_ELEMENTS_FOR_JSON)
 				->getJSON();
 			echo $json;
 		?>
@@ -57,7 +60,13 @@
 		</table>
 	</div>
 	<div id="xls">
-		<?php echo file_get_contents("data/" . $input_file);?>
+		<?php 
+			$filename = "data/" . $input_file;
+			if(file_exists ($filename))
+				echo file_get_contents($filename);
+			else
+				die("Vstupní soubor nebyl nalezen");
+		?>
 	</div>
 	<div class="row">
 		<div class="span6"><?php $form->render(); ?></div>
@@ -79,10 +88,10 @@
 			<?php
 				$place = 1;
 				
-				if(isset($_GET['place']))
-					$place = $_GET['place'];
+				if(isset($get_place))
+					$place = $get_place;
 
-				$elements = Model_db::getInstance()->query("SELECT * FROM " . $TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place );
+				$elements = Model_db::getInstance()->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place );
 				while ($reserved = $elements->fetch())
 				{
 					echo "<li>" . $reserved->element_number . "_" . $reserved->serie_number . "</li>";
@@ -91,7 +100,7 @@
 		</ul></div>
 		<div id="selected">
 			<form action="save.php" method="post">
-				<input type="hidden" name="id_user" value="<?php echo $_SESSION["id_user"] ?>" />
+				<input type="hidden" name="id_user" value="<?php echo $_SESSION["booking-system"]["id_user"] ?>" />
 				<input type="hidden" name="id_place" value="<?php echo $place ?>" />
 				<div class="span3 offset12"><input type='submit' value='Zarezervovat' class="bnt btn-large btn-success" /></div>
 			</form>

@@ -7,7 +7,7 @@ if(isset($_POST["form"])) {
 	PFBC\Form::isValid($_POST["form"]);
 	include("inc/model_db.inc.php");
 	Model_db::getInstance()
-		->query("INSERT INTO " . $TABLE_USERS .  " (email, password) VALUES ('" . $_POST['mail'] . "', '" . md5($_POST["password"]) . "')");
+		->query("INSERT INTO " . TABLE_USERS .  " (email, password) VALUES ('" . gpc_addslashes($_POST['mail']) . "', '" . md5(gpc_addslashes($_POST["password"])) . "')");
 	header("Location: sign_in.php");
 	exit();	
 }

@@ -11,6 +11,7 @@ else {
 	$examplePath = "examples/";
 	$indexPath = "";
 }
+
 ?>
 
 <!DOCTYPE html>

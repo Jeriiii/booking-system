@@ -10,22 +10,22 @@ if(isset($_POST["form"])) {
 		include("inc/model_db.inc.php");
 		
 		$exist_user = Model_db::getInstance()
-						->query("SELECT id FROM ". $TABLE_USERS . " WHERE email = '" . $_POST["mail"] . "' AND password = '" . md5($_POST["password"]) . "'")
+						->query("SELECT id FROM ". TABLE_USERS . " WHERE email = '" . $_POST["mail"] . "' AND password = '" . md5($_POST["password"]) . "'")
 						->fetch();
 		
 		if ($exist_user) {
 			session_regenerate_id(); // ochrana před Session Fixation
-			$_SESSION["logged"] = true;
-			$_SESSION["id_user"] = $exist_user->id;
+			$_SESSION["booking-system"]["logged"] = true;
+			$_SESSION["booking-system"]["id_user"] = $exist_user->id;
 			header("Location: " . $_SERVER["PHP_SELF"] . "/../index.php");
 			exit();
 		}else{
-			$_SESSION["message"] = "Uživatelské jméno nebo heslo je chybné.";
-			$_SESSION["message_type"] = "error";
+			$_SESSION["booking-system"]["message"] = "Uživatelské jméno nebo heslo je chybné.";
+			$_SESSION["booking-system"]["message_type"] = "error";
 		}
 	}	
 }
-if (isset($_SESSION["logged"])) {
+if (isset($_SESSION["booking-system"]["logged"])) {
 	header("Location: index.php");
 }
 

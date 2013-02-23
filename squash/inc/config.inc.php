@@ -1,11 +1,11 @@
 <?php
-$host = "localhost";
-$dbname = "cinema";
-$user = "root";
-$password = "a10b0618p";
-$TABLE_MOVIES = "movies";
-$TABLE_PLACES = "places";
-$TABLE_INPUT_ELEMENTS_FOR_JSON = "input_elements_for_json";
-$TABLE_RESERVED_ELEMENTS = "reserved_elements";
-$TABLE_USERS = "users";
+define("HOST", "localhost");
+define("DBNAME", "cinema");
+define("USER", "root");
+define("PASSWORD", "a10b0618p");
+define("TABLE_MOVIES", "movies");
+define("TABLE_PLACES", "places");
+define("TABLE_INPUT_ELEMENTS_FOR_JSON", "input_elements_for_json");
+define("TABLE_RESERVED_ELEMENTS", "reserved_elements");
+define("TABLE_USERS", "users");
 ?>
