@@ -14,8 +14,7 @@ echo "<table class='table'>";
 echo "<thead><th>sál</th><th>řada</th><th>sedadlo</th></thead>";
 
 include("inc/model_db.inc.php");
-$elements = Model_db::getInstance()
-	->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_user = '" . $_SESSION["booking-system"]["id_user"] . "'");
+$elements = Model_db::getInstance()->userReservedSeats($_SESSION["booking-system"]["id_user"]);
 
 while($element = $elements->fetch())
 {

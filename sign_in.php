@@ -9,9 +9,7 @@ if(isset($_POST["form"])) {
 	if (isset($_POST["mail"])) {
 		include("inc/model_db.inc.php");
 		
-		$exist_user = Model_db::getInstance()
-						->query("SELECT id FROM ". TABLE_USERS . " WHERE email = '" . $_POST["mail"] . "' AND password = '" . md5($_POST["password"]) . "'")
-						->fetch();
+		$exist_user = Model_db::getInstance()->signIn($_POST["mail"], $_POST["password"]);
 		
 		if ($exist_user) {
 			session_regenerate_id(); // ochrana před Session Fixation

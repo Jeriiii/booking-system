@@ -22,10 +22,7 @@
 	include("inc/header.inc.php");
 	
 	include("inc/model_db.inc.php");
-	$input_file = Model_db::getInstance()
-			->query("SELECT file FROM " . TABLE_PLACES . " WHERE id=" . $input)
-			->fetch()
-			->file;
+	$input_file = Model_db::getInstance()->loadInputFromFile($input);
 	$active = "index.php";
 	$type = "navbar-inverse";
 	include('inc/navigation.inc.php');
@@ -46,9 +43,7 @@
 ?>
 	<div id="json">
 		<?php 
-			$json = Model_db::getInstance()
-				->query("SELECT serie, type FROM " . TABLE_INPUT_ELEMENTS_FOR_JSON)
-				->getJSON();
+			$json = Model_db::getInstance()->loadAllSeatsFromDatabaseJSON($input);
 			echo $json;
 		?>
 	</div>
@@ -91,7 +86,7 @@
 				if(isset($get_place))
 					$place = $get_place;
 
-				$elements = Model_db::getInstance()->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place );
+				$elements = Model_db::getInstance()->loadReservedSeatsFromDatabase($place);
 				while ($reserved = $elements->fetch())
 				{
 					echo "<li>" . $reserved->element_number . "_" . $reserved->serie_number . "</li>";

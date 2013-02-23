@@ -123,6 +123,157 @@ class Model_db {
 	{
 		mysql_close($this->id_connect);
 	}
+	
+	/* ochrana proti SQL injection */
+
+	function gpc_addslashes($str) {
+		return (get_magic_quotes_gpc() ? $str : addslashes($str));
+	}
+	
+	/* metody pro konkretni nacitani dat z databaze */
+	
+	/**
+	 * nacteni vstupu ze souboru
+	 * 
+	 * @param input id souboru, ze kterého se má načítat rozmístění sedadel
+	 * @return jméno souboru, ze kterého se má načítat rozmístění sedadel
+	 */
+	
+	public function loadInputFromFile($input)
+	{
+		$input = gpc_addslashes($input);
+		
+		return $this->query("SELECT file FROM " . TABLE_PLACES . " WHERE id=" . $input)
+					->fetch()
+					->file;
+	}
+	
+	/**
+	 * nacteni vstupu z databáze, vrací formát JSON
+	 * 
+	 * @param place označuje id sálu
+	 * @return sedadla v sále ve formátu JSON
+	 */
+	
+	public function loadAllSeatsFromDatabaseJSON($place)
+	{
+		$place = gpc_addslashes($place);
+		
+		return $this->query("SELECT serie, type FROM " . TABLE_INPUT_ELEMENTS_FOR_JSON . " WHERE place=" . $place)
+					->getJSON();
+	}
+	
+	/**
+	 * vraci rezervovaná sedadla v sále
+	 * 
+	 * @param place označuje id sálu
+	 * @return sedadla v sále
+	 */
+	
+	public function loadReservedSeatsFromDatabase($place)
+	{
+		$place = gpc_addslashes($place);
+		
+		return $this->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place )
+				->fetch();;
+	}
+	
+	/**
+	 * rezervace sedadla
+	 * 
+	 * @param id_place označuje id sálu
+	 * @param id_user označuje id uživatele, na kterého se má sedadlo zarezervovat
+	 * @param serie označuje id série sedadel
+	 * @param seat označuje číslo sedadla
+	 */
+	
+	public function bookSeats($id_place, $id_user, $serie, $seat)
+	{
+		$id_place = gpc_addslashes($id_place);
+		$id_user = gpc_addslashes($id_user);
+		$serie = gpc_addslashes($serie);
+		$seat = gpc_addslashes($seat);
+		
+		$this->query("
+			INSERT INTO " . TABLE_RESERVED_ELEMENTS . " (id_place, id_user, serie_number, element_number)
+			VALUES (" . $id_place . "," . $id_user . "," . $serie . ",". $seat ." );
+		");
+	}
+	
+	/**
+	 * vrátí rezervovaná sedadla daného uživatele
+	 * 
+	 * @param id_user označuje id uživatele, na kterého je sedadlo zarezervováno
+	 * @return sedadla které má daný uživatel zarezervovaný
+	 */
+	
+	public function userReservedSeats($id_user)
+	{
+		$id_user = gpc_addslashes($id_user);
+		
+		return $this->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_user = '" . $id_user . "'")
+					->fetch();
+	}
+	
+	/**
+	 * přihlášení
+	 * 
+	 * @param email email daného uživatele
+	 * @param password heslo uživatele
+	 * @return uživatel, jestli existuje
+	 */
+	
+	public function signIn($email, $password)
+	{
+		$email = gpc_addslashes($email);
+		$password = gpc_addslashes($password);
+		
+		return $this->query("SELECT id FROM ". TABLE_USERS . " WHERE email = '" . $email . "' AND password = '" . md5($password) . "'")
+					->fetch();
+	}
+	
+	/**
+	 * registrace
+	 * 
+	 * @param email email daného uživatele
+	 * @param password heslo uživatele
+	 */
+	
+	public function registration($email, $password)
+	{
+		$email = gpc_addslashes($email);
+		$password = gpc_addslashes($password);
+		
+		return $this->query(
+				"INSERT INTO " . TABLE_USERS .  " (email, password) VALUES ('" 
+				. gpc_addslashes($email) . "', '" . md5($password) . "')"
+				);
+	}
+	
+	/**
+	 * vrací promítané filmy
+	 * 
+	 * @return promítané filmy
+	 */
+	
+	public function loadMoves()
+	{		
+		return $this->query("SELECT * FROM " . TABLE_MOVIES)
+					->fetch();
+	}
+	
+	/**
+	 * zrušení rezervace
+	 * 
+	 * @param id_element id elementu, který se má smazat
+	 */
+	
+	public function cancelReservation($id_element)
+	{	
+		$id_element = gpc_addslashes($id_element);
+		
+		return $this->query("DELETE FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id = '" . $id_element . "'");
+	}
     
 }
 
