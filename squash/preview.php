@@ -13,9 +13,10 @@ echo "<h2>Zarezervovaná sedadla:</h2></header><section>";
 echo "<table class='table'>";
 echo "<thead><th>sál</th><th>řada</th><th>sedadlo</th></thead>";
 
-include("inc/model_db.inc.php");
-$elements = Model_db::getInstance()
-	->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_user = '" . $_SESSION["booking-system"]["id_user"] . "'");
+include("inc/booking_system.class.php");
+$database->connect();
+$elements = $database->userReservedSeats($_SESSION["booking-system"]["id_user"]);
+$database->disconnect();
 
 while($element = $elements->fetch())
 {

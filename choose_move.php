@@ -52,8 +52,11 @@ echo "<h2>Seznam promítaných filmů:</h2>";
 echo "<table class='table'>";
 echo "<thead><th>jméno filmu</th><th>od</th><th>do</th><th>sál</th></thead>";
 
-include("inc/model_db.inc.php");
-$films = Model_db::getInstance()->loadMoves();
+include("inc/booking_system.class.php");
+
+$database->connect();
+$films = $database->loadMoves();
+$database->disconnect();
 
 while($film = $films->fetch())
 {

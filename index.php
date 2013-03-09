@@ -20,8 +20,10 @@
 	
 	include("inc/header.inc.php");
 	
-	include("inc/model_db.inc.php");
-	$input_file = Model_db::getInstance()->loadInputFromFile($input);
+	include("inc/booking_system.class.php");
+	$database->connect();
+	$input_file = $database->loadInputFromFile($input);
+	$database->disconnect();
 	$active = "index.php";
 	$type = "navbar-inverse";
 	include('inc/navigation.inc.php');
@@ -42,16 +44,11 @@
 ?>
 	<div id="json">
 		<?php 
-			$json = Model_db::getInstance()->loadAllSeatsFromDatabaseJSON($input);
+			$database->connect();
+			$json = $database->loadAllSeatsFromDatabaseJSON($input);
+			$database->disconnect();
 			echo $json;
 		?>
-	</div>
-	<div id="table">
-		<table>
-			<tr><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td></tr>
-			<tr><td></td><td></td><td></td></tr>
-		</table>
 	</div>
 	<div id="xls">
 		<?php 
@@ -82,10 +79,12 @@
 			<?php
 				$place = 1;
 				
-				if(isset($get_place))
-					$place = $get_place;
+				if(isset($_GET["place"]))
+					$place = $_GET["place"];
 
-				$elements = Model_db::getInstance()->loadReservedSeatsFromDatabase($place);
+				$database->connect();
+				$elements = $database->loadReservedSeatsFromDatabase($place);
+				$database->disconnect();
 				while ($reserved = $elements->fetch())
 				{
 					echo "<li>" . $reserved->element_number . "_" . $reserved->serie_number . "</li>";

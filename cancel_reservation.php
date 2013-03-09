@@ -1,7 +1,9 @@
 <?php
-include("inc/model_db.inc.php");
+include("inc/booking_system.class.php");
 
-Model_db::getInstance()->cancelReservation($_GET["id_element"]);
+$database->connect();
+$database->cancelReservation($_GET["id_element"]);
+$database->disconnect();
 
 header('Location: preview.php');
 ?>

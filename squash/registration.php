@@ -5,9 +5,10 @@ include("PFBC/Form.php");
 
 if(isset($_POST["form"])) {
 	PFBC\Form::isValid($_POST["form"]);
-	include("inc/model_db.inc.php");
-	Model_db::getInstance()
-		->query("INSERT INTO " . TABLE_USERS .  " (email, password) VALUES ('" . gpc_addslashes($_POST['mail']) . "', '" . md5(gpc_addslashes($_POST["password"])) . "')");
+	include("inc/booking_system.class.php");
+	$database->connect();
+	$database->registration($_POST['mail'], $_POST["password"]);
+	$database->disconnect();
 	header("Location: sign_in.php");
 	exit();	
 }

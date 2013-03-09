@@ -6,11 +6,10 @@
 	
 	include("inc/header.inc.php");
 	
-	include("inc/model_db.inc.php");
-	$input_file = Model_db::getInstance()
-			->query("SELECT file FROM " . TABLE_PLACES . " WHERE id=" . $input)
-			->fetch()
-			->file;
+	include("inc/booking_system.class.php");
+	$database->connect();
+	$input_file = $database->loadInputFromFile($input);
+	$database->disconnect();
 	$active = "index.php";
 	include('inc/navigation.inc.php');
 	echo $navigation;
@@ -18,9 +17,9 @@
 ?>
 	<div id="json">
 		<?php 
-			$json = Model_db::getInstance()
-				->query("SELECT serie, type FROM " . TABLE_INPUT_ELEMENTS_FOR_JSON)
-				->getJSON();
+			$database->connect();
+			$json = $database->loadAllSeatsFromDatabaseJSON($input);
+			$database->disconnect();
 			echo $json;
 		?>
 	</div>
@@ -47,7 +46,9 @@
 			<?php
 				$place = 1;
 
-				$elements = Model_db::getInstance()->query("SELECT * FROM " . TABLE_RESERVED_ELEMENTS . " WHERE id_place=" . $place );
+				$database->connect();
+				$elements = $database->loadReservedSeatsFromDatabase($place);
+				$database->disconnect();
 				while ($reserved = $elements->fetch())
 				{
 					echo "<li>" . $reserved->element_number . "_" . $reserved->serie_number . "</li>";

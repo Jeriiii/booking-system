@@ -7,7 +7,7 @@
  * @author Petr Kukrál
  */
 
-class Model_db {
+class BookingSystemDatabase {
 	/* server například localhost */
 	private $host;
 	/* jméno databáze */
@@ -20,29 +20,6 @@ class Model_db {
 	private $id_connect;
 	/* výsledná data - řádky - z databáze */
 	private $rows;
-	/* jediná instance této třídy podle modelu jedináček */
-	private static $instance = NULL;
-
-	/**
-	 * privátní konstruktor podle modelu jedináček 
-	 */
-	private function __construct()
-	{
-	}
-	
-	/**
-	 * statická metoda pro vrácení instance třídy
-	 * 
-	 * @return instance této třídy
-	 */
-	
-	public static function getInstance() {
-        if (self::$instance == NULL) {
-            self::$instance = new self();
-			self::$instance->rows = NULL;
-        }
-        return self::$instance;
-    }
 	
 	/**
 	 * setter pro nastavování parametrů třídy
@@ -68,14 +45,10 @@ class Model_db {
 	 */
 	public function query($query)
 	{
-	    $this->connect();
-	    
 	    $this->rows = mysql_query($query,  $this->id_connect);
 		
 		if (!$this->rows) 
 			die("Nepodaril se poslat SQL dotaz do databaze." . $query);
-		
-	    $this->disconnect();
 		
 		return $this;
 	}
@@ -108,18 +81,26 @@ class Model_db {
 	 * slouží pro připojení k databázi
 	 */
 
-	private function connect()
+	public function connect()
 	{
 		$this->id_connect = mysql_connect($this->host,$this->user,$this->password);
 
-		mysql_select_db($this->dbname,$this->id_connect);
+		if (!$this->id_connect) {
+			die('Připojení se nezdařilo: ' . mysql_error());
+		}
+		
+		$db_selected = mysql_select_db($this->dbname,$this->id_connect);
+		
+		if (!$db_selected) {
+			die ('Nezdařilo se připojení databázi: ' . mysql_error());
+		}
 	}
 	
 	/**
 	 * slouží k odpojení od databáze
 	 */
 	
-	private function disconnect()
+	public function disconnect()
 	{
 		mysql_close($this->id_connect);
 	}

@@ -5,8 +5,10 @@ include("PFBC/Form.php");
 
 if(isset($_POST["form"])) {
 	PFBC\Form::isValid($_POST["form"]);
-	include("inc/model_db.inc.php");
-	Model_db::getInstance()->registration($_POST['mail'], $_POST["password"]);
+	include("inc/booking_system.class.php");
+	$database->connect();
+	$database->registration($_POST['mail'], $_POST["password"]);
+	$database->disconnect();
 	header("Location: sign_in.php");
 	exit();	
 }

@@ -7,11 +7,11 @@ include("PFBC/Form.php");
 if(isset($_POST["form"])) {
 	PFBC\Form::isValid($_POST["form"]);
 	if (isset($_POST["mail"])) {
-		include("inc/model_db.inc.php");
+		include("inc/booking_system.class.php");
 		
-		$exist_user = Model_db::getInstance()
-						->query("SELECT id FROM ". TABLE_USERS . " WHERE email = '" . gpc_addslashes($_POST["mail"]) . "' AND password = '" . md5(gpc_addslashes($_POST["password"])) . "'")
-						->fetch();
+		$database->connect();
+		$exist_user = $database->signIn($_POST["mail"], $_POST["password"]);
+		$database->disconnect();
 		
 		if ($exist_user) {
 			session_regenerate_id(); // ochrana před Session Fixation
@@ -47,5 +47,6 @@ $form->render();
 
 nejsteli zaregistrovaní, <a href="registration.php">registrujte se nyní</a><br />
 testovací uživatel - jméno a heslo je: test
+
 
 <?php include("inc/foot.inc.php");

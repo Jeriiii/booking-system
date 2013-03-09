@@ -7,9 +7,11 @@ include("PFBC/Form.php");
 if(isset($_POST["form"])) {
 	PFBC\Form::isValid($_POST["form"]);
 	if (isset($_POST["mail"])) {
-		include("inc/model_db.inc.php");
+		include("inc/booking_system.class.php");
 		
-		$exist_user = Model_db::getInstance()->signIn($_POST["mail"], $_POST["password"]);
+		$database->connect();
+		$exist_user = $database->signIn($_POST["mail"], $_POST["password"]);
+		$database->disconnect();
 		
 		if ($exist_user) {
 			session_regenerate_id(); // ochrana před Session Fixation

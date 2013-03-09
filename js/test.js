@@ -4,11 +4,3 @@ $(document).ready(function () {
 		input: $("#xls").text()
 	});
 });
-
-//function mouseUp(e) {
-//	
-//}
-
-//function mouseOver(e) {
-//	
-//}
