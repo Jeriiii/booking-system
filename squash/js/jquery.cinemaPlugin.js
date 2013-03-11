@@ -12,9 +12,9 @@
 
 ;(function($) {
 
-/* nastavění uživatele doplněné o defaultní nastavení */
+/** nastavení uživatele doplněné o defaultní nastavení */
 var opts;
-/* obsahuje prvek nad kterym je system volan */
+/** obsahuje prvek nad kterym je system volan */
 var thisSystem;
 
 /**
@@ -117,46 +117,50 @@ $.fn.booking_system = function(options){
  * Doplnění hodnot které zadal uživatel o defaultní hodnoty.
  */
 $.fn.booking_system.defaults = {
-	/* formát vstupu */
+	/** formát vstupu */
 	format: "cvs",
-	/* vstup */
+	/** vstup */
 	input: "1,1,1,2,;,1,1,1,1;,,2,, ;",
-	/* název třídy elementu pro css */
+	/** název třídy elementu pro css */
 	name_class_element: "sedadlo",
-	/* název série - např. řady sedadel */
+	/** název série - např. řady sedadel */
 	name_class_serie: "ctverec",
-	/* název třídy elementu pro prázdné místo pro css */
+	/** název třídy elementu pro prázdné místo pro css */
 	name_class_without_element: "vynechane_misto",
-	/* funkce která se spustí po přejetí myši přes element */
+	/** funkce která se spustí po přejetí myši přes element */
 	mouse_over: mouseOverDefault,
-	/* data pro funkci která se spustí po přejetí myši přes element */
+	/** data pro funkci která se spustí po přejetí myši přes element */
 	mouse_up: mouseUpDefault,
-	/* data pro funkci která se spustí po klepnutí myši na element */
+	/** data pro funkci která se spustí po klepnutí myši na element */
 	mouse_out: mouseOutDefault,
-	/* obrázek elementu */
+	/** obrázek elementu */
 	img_element: "images/modre_jednosedadlo.png",
-	/* obrázek dvojelementu např. dvojsedačky */
+	/** obrázek dvojelementu např. dvojsedačky */
 	img_double_element: "images/modre_dvojsedadlo.png",
-	/* obrázek rezervovaného elementu */
+	/** obrázek rezervovaného elementu */
 	img_reserved: "images/tmavesede_jednosedadlo.png",
-	/* obrázek rezervovaného dvojelementu např. dvojsedačky */
+	/** obrázek rezervovaného dvojelementu např. dvojsedačky */
 	img_double_reserved: "images/tmavesede_dvojsedadlo.png",
-	/* obrázek vybraného elementu */
+	/** obrázek vybraného elementu */
 	img_selected: "images/zelene_jednosedadlo.png",
-	/* obrázek vybraného dvojelementu např. dvojsedačky */
+	/** obrázek vybraného dvojelementu např. dvojsedačky */
 	img_double_selected: "images/zelene_dvojsedadlo.png",
-	/* jestli se má vypsat legenda */
+	/** jestli se má vypsat legenda */
 	legend: "TRUE",
-	/* id elementu nebo třída kam se má legenda vypsat */
+	/** id elementu nebo třída kam se má legenda vypsat */
 	legend_target: "#legend .row",
-	/* popisek legendy */
+	/** popisek legendy */
 	legend_title: "Legenda",
-	/* popisek elementu */
+	/** popisek elementu */
 	legend_element: "volná sedačka",
-	/* popisek rezervovaného elementu */
+	/** popisek rezervovaného elementu */
 	legend_reserved: "rezervovaná sedačka",
-	/* popisek vybraného elementu */
-	legend_selected: "vybraná sedačka"
+	/** popisek vybraného elementu */
+	legend_selected: "vybraná sedačka",
+	/** třída ovlivňující pozici - zarovnání legendy */
+	legend_class: "float_left",
+	/** id nadpisu legendy */
+	legend_id: "legend_title"
 };
 
 /**
@@ -495,10 +499,10 @@ function createLegend() {
 	var opts = this.opts;
 	if(opts.legend == "TRUE") {
 		var target = $(opts.legend_target);
-		target.append("<h4 class='float_left' id='legend_title'>Legenda: </h4>");
-		target.append("<div class='float_left'><img src='" + opts.img_element + "' alt='" + opts.legend_element +"' title='" + opts.legend_element + "' /></div>");
-		target.append("<div class='float_left'><img src='" + opts.img_reserved + "' alt='" + opts.legend_reserved +"' title='" + opts.legend_reserved + "' /></div>");
-		target.append("<div class='float_left'><img src='" + opts.img_selected + "' alt='" + opts.legend_selected +"' title='" + opts.legend_selected + "' /></div>");
+		target.append("<h4 class='" + opts.legend_class + "' id='" + opts.legend_id + "'>Legenda: </h4>");
+		target.append("<div class='" + opts.legend_class + "'><img src='" + opts.img_element + "' alt='" + opts.legend_element +"' title='" + opts.legend_element + "' /></div>");
+		target.append("<div class='" + opts.legend_class + "'><img src='" + opts.img_reserved + "' alt='" + opts.legend_reserved +"' title='" + opts.legend_reserved + "' /></div>");
+		target.append("<div class='" + opts.legend_class + "'><img src='" + opts.img_selected + "' alt='" + opts.legend_selected +"' title='" + opts.legend_selected + "' /></div>");
 	}
 }
 
