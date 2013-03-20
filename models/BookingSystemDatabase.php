@@ -140,7 +140,7 @@ class BookingSystemDatabase {
 	{
 		$place = $this->gpc_addslashes($place);
 		
-		return $this->query("SELECT serie, type FROM " . TABLE_INPUT_ELEMENTS_FOR_JSON . " WHERE place=" . $place)
+		return $this->query("SELECT serie, type FROM " . TABLE_INPUT_ELEMENTS_FOR_JSON . " WHERE id_place=" . $place)
 					->getJSON();
 	}
 	
@@ -237,7 +237,22 @@ class BookingSystemDatabase {
 	
 	public function loadMoves()
 	{		
-		return $this->query("SELECT * FROM " . TABLE_MOVIES);
+		return $this->query("SELECT * FROM " . TABLE_PLAYING_MOVIES);
+	}
+	
+	/**
+	 * vrací název filmu
+	 * 
+	 * @return název filmu
+	 */
+	
+	public function getMovieName($id_movie)
+	{		
+		$id_movie = $this->gpc_addslashes($id_movie);
+		
+		return $this->query("SELECT * FROM " . TABLE_MOVIES . " WHERE id=" . $id_movie)
+				->fetch()
+				->name;
 	}
 	
 	/**

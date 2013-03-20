@@ -2,6 +2,7 @@
 session_start();
 include("inc/message.inc.php");
 include("inc/authorization.inc.php");
+include("inc/protection.inc.php");
 include("PFBC/Form.php");
 	$place = array(
 		"1" => "Bathman",
@@ -55,18 +56,25 @@ echo "<thead><th>jméno filmu</th><th>od</th><th>do</th><th>sál</th></thead>";
 include("inc/booking_system.class.php");
 
 $database->connect();
-$films = $database->loadMoves();
-$database->disconnect();
+$load_films = $database->loadMoves();
 
-while($film = $films->fetch())
+$films = array();
+while($film = $load_films->fetch()) 
+{
+	$films[] = $film;
+}
+
+foreach($films as $film)
 {
 	echo "<tr>";
-	echo	"<td><a href='index.php?place=" . $film->hall . "'>" . $film->name . "</a></td>
+	echo	"<td><a href='index.php?place=" . $film->id_place . "'>" 
+			. $database->getMovieName($film->id_movie) . "</a></td>
 		<td>" . $film->start . "</td>
 		<td>" . $film->end . "</td>
-		<td>" . $film->hall . "</td>";
+		<td>" . $film->id_place . "</td>";
 	echo "</tr></a>";
 }
+$database->disconnect();
 
 echo "</table>";
 ?>	
