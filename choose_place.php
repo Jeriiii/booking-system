@@ -39,17 +39,17 @@ include("PFBC/Form.php");
             $("#cities").tokenInput([{
 				id:1,
                 name: "Plzeň",
-				description: " ... je statutární město na západě Čech ..."
+				description: " ... centrum Plzeň Plaza ..."
             },
 			{
 				id:2,
                 name: "České Budějovice",
-				description: " ... metropole Jižních Čech ..."
+				description: " ... multikino CineStar České Budějovice ..."
             },
 			{
 				id:3,
                 name: "Praha",
-				description: " ... hlavní město ČR ..."
+				description: " ... centrum Flora ..."
             }
           ], {
 			  method: "GET",
